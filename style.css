@@ -19,20 +19,21 @@ h1 {
     font-family: sans-serif;
     color: white;
 }
-@media (max-width:280px) {
-    h1 {
-        font-size: 6rem;
-    }
-}
 @media (max-width:376px) {
     h1 {
         font-size: 4rem;
     }
 }
+@media (max-width:280px) {
+    h1 {
+        font-size: 3rem;
+    }
+}
 @media (min-width:768px) {
     h1 {
-        font-size: 7rem;
+        font-size: 5rem;
         letter-spacing: .7rem;
+        margin-bottom: 1rem;
     }
 }
 
@@ -61,13 +62,18 @@ h1 {
         padding-bottom: 2.7rem;
     }
 }
+@media (max-width:280px) {
+    .col-rows {
+        grid-template-columns: repeat(5, 5rem);
+    }
+}
 @media (min-width:768px) {
     .col-rows {
-        grid-template-columns: repeat(5, 10rem);
+        grid-template-columns: repeat(5, 7rem);
     }
     .col-rows input {
-        padding-top: 3.5rem;
-        padding-bottom: 3.5rem;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
     }
 }
 
@@ -95,8 +101,8 @@ h1 {
 }
 @media (min-width:768px) {
     #final h2 {
-        margin-top: 2rem;
-        font-size: 5rem;
+        margin-top: 1rem;
+        font-size: 4rem;
     }
 }
 
@@ -118,6 +124,7 @@ h1 {
 }
 @media (min-width:768px) {
     #final button {
-        font-size: 4rem;
+        font-size: 3rem;
+        padding: 3rem 5rem;
     }
 }

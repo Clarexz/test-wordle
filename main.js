@@ -3,12 +3,14 @@ let arrWord = [];
 const form = document.createElement("FORM");
 async function getWord() {
     //Consulta a la api
-    const wordApi = 'https://palabras-aleatorias-public-api.herokuapp.com/random-by-length?length=5';
+    // API de AlexScigalszky const wordApi = 'https://palabras-aleatorias-public-api.herokuapp.com/random-by-length?length=5';
+    const wordApi = "https://clientes.api.greenborn.com.ar/public-random-word?c=9&l=5"
     const result = await fetch(wordApi);
     const data = await result.json();
-
     //En esta variable se guarda la palabra que trae la api
-    const word = data.body.Word.toUpperCase();
+    // palabra de la API de AlexScigalszkyconst word = data.body.Word.toUpperCase();
+    word = data[0].toUpperCase();
+    console.log(word);
     arrWord = word.split('');
     console.log(arrWord);
     
@@ -128,7 +130,7 @@ function validate() {
                 document.querySelector(`#letter${rowCount}-${i + 1}`).classList.add("good");
 
                 points++;
-            } else if(arrGuess[i] != arrWord[i] && arrWord.indexOf(arrGuess[i]) >= 0) {
+            } else if(arrGuess[i] != arrWord[i] && arrWord.indexOf(arrGuess[i]) >= 0 ) {
                 document.querySelector(`#letter${rowCount}-${i + 1}`).classList.add("almost");
             } else if(arrGuess[i] != arrWord[i]) {
                 document.querySelector(`#letter${rowCount}-${i + 1}`).classList.add("wrong");
