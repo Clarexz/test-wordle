@@ -135,7 +135,7 @@ let wordGuess;
 //Función para validar si al dar enter introdujiste 5 letras o no
 function validate() {
     wordGuess = arrGuess.join("")
-    
+    console.log(wordGuess.length);
     if(wordGuess.length == 5) {
         for(let i = 0; i < arrWord.length; i++) {
             if(arrGuess[i] == arrWord[i]) {
@@ -149,7 +149,7 @@ function validate() {
             }
         }
     } else {
-        return;
+        validate();
     }    
 }
 
