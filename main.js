@@ -9,35 +9,40 @@ async function getWord() {
     const data = await result.json();
     //En esta variable se guarda la palabra que trae la api
     // palabra de la API de AlexScigalszkyconst word = data.body.Word.toUpperCase();
-    word = data[0].toUpperCase();
-    console.log(word);
-    arrWord = word.split('');
-    console.log(arrWord);
-    
-    //Crear formulario e insertarlo al html
-    form.classList.add("col-rows");
-    const div = document.querySelector("#game");
-    div.appendChild(form);
-    
-    //for para crear las filas de los inputs
-    for(let i = 0; i < 6; i++) {
-        //for para crear los inputs de cada letra (columnas)
-        for(let j = 0; j < arrWord.length; j++) {
-            const input = document.createElement("INPUT");
-            input.classList.add(`letter${i + 1}`);
-            input.setAttribute("id", `letter${i + 1}-${j + 1}`);
-            input.setAttribute("name", `letter${i + 1}-${j + 1}`);
-            input.setAttribute("maxlength", "1");
-            input.setAttribute("oninput", "this.value = this.value.toUpperCase()")
-            input.style.marginLeft = ".5rem";
-            input.style.height = "3rem";
-            input.setAttribute("disabled", "true");
-            form.appendChild(input);
-        } 
-    }
 
-    //Linea para tener habilitada la escritura solo en la primera fila
-    document.querySelectorAll(".letter1").forEach((input) => {input.disabled = false});
+    if(data[0].length == 4) {
+        getWord();
+    } else {
+        word = data[0].toUpperCase();
+        console.log(word);
+        arrWord = word.split('');
+        console.log(arrWord);
+        
+        //Crear formulario e insertarlo al html
+        form.classList.add("col-rows");
+        const div = document.querySelector("#game");
+        div.appendChild(form);
+        
+        //for para crear las filas de los inputs
+        for(let i = 0; i < 6; i++) {
+            //for para crear los inputs de cada letra (columnas)
+            for(let j = 0; j < arrWord.length; j++) {
+                const input = document.createElement("INPUT");
+                input.classList.add(`letter${i + 1}`);
+                input.setAttribute("id", `letter${i + 1}-${j + 1}`);
+                input.setAttribute("name", `letter${i + 1}-${j + 1}`);
+                input.setAttribute("maxlength", "1");
+                input.setAttribute("oninput", "this.value = this.value.toUpperCase()")
+                input.style.marginLeft = ".5rem";
+                input.style.height = "3rem";
+                input.setAttribute("disabled", "true");
+                form.appendChild(input);
+            } 
+        }
+
+        //Linea para tener habilitada la escritura solo en la primera fila
+        document.querySelectorAll(".letter1").forEach((input) => {input.disabled = false});
+    }
 }
 getWord();
 
@@ -57,25 +62,25 @@ form.addEventListener("keypress", function(e) {
     const input1 = document.querySelector(`#letter${rowCount}-1`);
     input1.addEventListener("input", function(e) {
         guessObj[e.target.id] = e.target.value;
-        nextTab();
+        document.querySelector(`#letter${rowCount}-2`).focus();
     });
 
     const input2 = document.querySelector(`#letter${rowCount}-2`);
     input2.addEventListener("input", function(e) {
         guessObj[e.target.id] = e.target.value;
-        nextTab();
+        document.querySelector(`#letter${rowCount}-3`).focus();
     });
 
     const input3 = document.querySelector(`#letter${rowCount}-3`);
     input3.addEventListener("input", function(e) {
         guessObj[e.target.id] = e.target.value;
-        nextTab();
+        document.querySelector(`#letter${rowCount}-4`).focus();
     });
 
     const input4 = document.querySelector(`#letter${rowCount}-4`);
     input4.addEventListener("input", function(e) {
         guessObj[e.target.id] = e.target.value;
-        nextTab();
+        document.querySelector(`#letter${rowCount}-5`).focus();
     });
 
     const input5 = document.querySelector(`#letter${rowCount}-5`);
@@ -92,26 +97,33 @@ form.addEventListener("keypress", function(e) {
         validate();
         gameOver();
     }
+
+})
+form.addEventListener("keydown", function(e) {
+    if(e.key == "Backspace") {
+        if(inputTab >= 1) {
+            document.querySelector(`#letter${rowCount}-${inputTab - 1}`).focus();
+            inputTab--
+            console.log(inputTab);
+        }
+    }
 })
 
 //Funcion para hacer autotab al siguiente input, el contador es para que después del 5to input ya no se haga autotab
-let justOne = 0;
+let inputTab = 1;
 function nextTab() {
-    if(justOne < 9) {
         if(document.querySelector(`#letter${rowCount}-1`).value.length == 1) {
-            document.querySelector(`#letter${rowCount}-2`).focus();
+            
         }
         if(document.querySelector(`#letter${rowCount}-2`).value.length == 1) {
-            document.querySelector(`#letter${rowCount}-3`).focus();
+            
         }
         if(document.querySelector(`#letter${rowCount}-3`).value.length == 1) {
-            document.querySelector(`#letter${rowCount}-4`).focus();
+            
         }
         if(document.querySelector(`#letter${rowCount}-4`).value.length == 1) {
-            document.querySelector(`#letter${rowCount}-5`).focus();
+            
         }
-        justOne++;
-    }
 }
 
 //Array que guardará en un solo value el valor de los inputs
